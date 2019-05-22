@@ -1,0 +1,21 @@
+<div class="popup">
+  <div class="container">
+    <div class="row popup-header">
+      <div class="col-10">Talk to us</div>
+      <div class="col-2"><i class="fa fa-window-maximize" (click) = "showChatWindow()" *ngIf="!showChat"></i> <i *ngIf="showChat" class="fa fa-times" (click) = "hideChatWindow()"></i></div>
+    </div>
+    <div class="row chat-thread" *ngIf="showChat">
+      <div #scrollMe class="msg-scroll">
+          <ng-container *ngFor="let message of messages | async">
+            <div class="message" [ngClass]="{ 'from': message.sentBy === 'bot', 'to':   message.sentBy === 'user' }">
+              {{ message.content }}
+            </div>
+          </ng-container>
+        </div>
+        <div class="input-btns ml-2">
+          <input class="mr-2 msg-input" [(ngModel)]="formValue" (keyup.enter)="sendMessage()" type="text" placeholder="Enter your message">
+          <button class="btn btn-primary float-right" (click)="sendMessage()">Send</button>
+        </div>
+      </div>
+  </div>
+</div>
